@@ -21,8 +21,9 @@ Access main page at `<your-ip>:5000`. See below for changing port number.
 This container is designed to run on the same machine hosting Nextcloud data. The volume binding below is for the directory containing the recipes stored by Nextcloud Cookbook. Alternatively, the data can be copied to another location, and then that location can be bound to "/recipe_data".
 
 If using the [LSIO NextCloud docker container](https://github.com/linuxserver/docker-nextcloud#usage), the folder may be in the following location:
-<volume bound to NextCloud data "/data"> / <NextCloud user> /files/Recipes
-
+```
+<volume bound to NextCloud data "/data">/<user>/files/Recipes
+```
 Example configurations to build container are shown below. Environmental Variables are listed with default values and do not need to be specified. Healthcheck is optional.
 
 ### docker-compose
