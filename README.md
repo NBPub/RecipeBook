@@ -3,7 +3,7 @@ Python web-app (Flask) to browse Nextcloud Cookbook recipes on the local network
 
 ## Overview
 
-I created this to access recipes from [Nextcloud Cookbook](https://apps.nextcloud.com/apps/cookbook) and easily view them on Kindle's web browser. The view is designed for such screens, and is not as nice as the actual app. Therefore, accessing your Nextcloud website with a mobile device or tablet would just as effectively provide kitchen access to Cookbook. Note that the web application is very basic and should not be run on untrusted networks.
+I created this to access recipes from [Nextcloud Cookbook](https://apps.nextcloud.com/apps/cookbook) and easily view them on Kindle's web browser whilst cooking. The view is designed for such screens, and is not as nice as the actual app. Therefore, accessing your Nextcloud website with a mobile device or tablet would just as effectively provide kitchen access to Cookbook. Note that the web application is very basic and should not be run on untrusted networks.
 
 The machine running the app should have access to the Nextcloud user data (directly or via network share). The data is supplied to the container using volume binding. See [LinuxServer.io](https://docs.linuxserver.io/) and [Docker](https://docs.docker.com/) for more information on Docker containers.
 
@@ -21,7 +21,7 @@ Access main page at `<your-ip>:5000`. See below for changing port number.
 This container is designed to run on the same machine hosting Nextcloud data. The volume binding below is for the directory containing the recipes stored by Nextcloud Cookbook. Alternatively, the data can be copied to another location, and then that location can be bound to "/recipe_data".
 
 If using the [LSIO NextCloud docker container](https://github.com/linuxserver/docker-nextcloud#usage), the folder may be in the following location:
-<volume bound to NextCloud data "/data">/<NextCloud user>/files/Recipes
+<volume bound to NextCloud data "/data"> / <NextCloud user> /files/Recipes
 
 Example configurations to build container are shown below. Environmental Variables are listed with default values and do not need to be specified. Healthcheck is optional.
 
