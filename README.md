@@ -17,6 +17,7 @@ Access main page at `<your-ip>:5000`. See below for changing port number.
 
 ## Usage
 *To Do: Allow for timezone (tzdata) selection.*
+*To Do: Add healthcheck to Docker-CLI.*
 
 This container is designed to run on the same machine hosting Nextcloud data. The volume binding below is for the directory containing the recipes stored by Nextcloud Cookbook. Alternatively, the data can be copied to another location, and then that location can be bound to "/recipe_data".
 
