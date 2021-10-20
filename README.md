@@ -16,7 +16,6 @@ This is my first project using Flask and building Docker containers. Feedback is
 Access main page at `<your-ip>:5000`. See below for changing port number.
 
 ## Usage
-*To Do: Allow for timezone (tzdata) selection.*
 *To Do: Add healthcheck to Docker-CLI.*
 
 This container is designed to run on the same machine hosting Nextcloud data. The volume binding below is for the directory containing the recipes stored by Nextcloud Cookbook. Alternatively, the data can be copied to another location, and then that location can be bound to "/recipe_data".
@@ -41,6 +40,7 @@ services:
     ports:
       - 5000:5000
     environment:
+      - TZ=America/Los_Angeles
       - PAGE_TITLE=Recipe Book
       - IMAGE_SIZE=Full
       - FONT_SMALL=30
@@ -58,6 +58,7 @@ services:
 ```bash
 docker run -d \
   --name=recipebook \
+  -e TZ=America/Los_Angeles \
   -e PAGE_TITLE=Recipe Book \
   -e IMAGE_SIZE=Full \
   -e FONT_SMALL=30 \
@@ -75,8 +76,9 @@ Container images are configured using parameters passed at runtime (such as thos
 | Parameter | Function |
 | :----: | --- |
 | `-p 5000` | Default Flask port. |
+| `-e TZ=America/Los_Angeles` | Set timezone for logging using tzdata. |
 | `-e PAGE_TITLE=Recipe Book` | Home page title. Displays on tab. |
 | `-e IMAGE_SIZE=Full` | Default image size to load. Can be changed to "Thumbnails". Recipe pages have a toggle button to switch between sizes. |
 | `-e FONT_SMALL=30` | Default size for "small" sections: **Description** and **Reviews**. Can be changed to any integer to adjust web-page display. |
 | `-e FONT_LARGE=36` | Default size for "large" sections: **Ingredients** and **Instructions**. Can be changed to any integer to adjust web-page display. |
-| `-v /recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided which will capture changes to volume. |
+| `-v /recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. |
