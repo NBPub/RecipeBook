@@ -13,7 +13,7 @@ This is my first project using Flask and building Docker containers. Feedback is
 
 ### Supported Architectures
 
-Pulling from DockerHub should provide the correct image for your system. The application is built on the python-alpine base image.
+Pulling from DockerHub should provide the correct image for your system. The application is built on the python-alpine base image. See [DockerHub Repository](https://hub.docker.com/r/nbpub/recipelook)
 
 Images are available for the following architectures:
 
@@ -25,7 +25,7 @@ Images are available for the following architectures:
 
 ## Application Setup
 
-Install and run using docker, examples provided below. [DockerHub Repository](https://hub.docker.com/r/nbpub/recipelook)
+Install and run using docker, examples provided below.
 
 Access main page at `<your-ip>:5000`. See below for changing port number.
 
