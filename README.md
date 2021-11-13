@@ -91,9 +91,9 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-p 5000` | Default Flask port. |
 | `-e TZ=America/Los_Angeles` | Set timezone for logging using tzdata. |
 | `-e PAGE_TITLE=Recipe Book` | Home page title. Displays on tab. |
-| `-e IMAGE_SIZE=Full` | Default image size to load. Can be changed to "Thumbnails". Recipe pages have a toggle button to switch between sizes. |
-| `-e FONT_SMALL=30` | Default size for "small" sections: **Description** and **Reviews**. Can be changed to any integer to adjust web-page display. |
-| `-e FONT_LARGE=36` | Default size for "large" sections: **Ingredients** and **Instructions**. Can be changed to any integer to adjust web-page display. |
+| `-e IMAGE_SIZE=Full` | Default image size to load. Can be changed to `Thumbnails`. Recipe pages have a toggle button to switch between sizes. |
+| `-e FONT_SMALL=30` | Default size for "small" sections: **Description** and **Reviews**. Can be changed to any `<integer>` to adjust web-page display. |
+| `-e FONT_LARGE=36` | Default size for "large" sections: **Ingredients** and **Instructions**. Can be changed to any `<integer>` to adjust web-page display. |
 | `-v /recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. Read only option added for example "ro" |
 
 ## Screenshots
