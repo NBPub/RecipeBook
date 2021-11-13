@@ -33,7 +33,7 @@ Example configurations to build container are shown below. Environmental Variabl
 version: "2"
 services:
   recipe:
-    image: recipes:latest
+    image: nbpub/recipelook:latest
     container_name: recipebook
     volumes:
       - <path/to/recipes-folder>:/recipe_data
@@ -66,7 +66,7 @@ docker run -d \
   -p 5000:5000 \
   -v <path/to/recipes-folder>:/recipe_data \
   --restart unless-stopped \
-  <path to image or docker hub link, to be added>
+  nbpub/recipelook:latest
 ```
 
 ## Parameters
