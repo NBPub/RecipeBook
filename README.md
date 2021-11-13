@@ -98,7 +98,26 @@ Container images are configured using parameters passed at runtime (such as thos
 
 ## Screenshots
 
-TBD
+* Home Page, lists all recipes
+![Home](/Screenshots_Kindle/homepage.png "Home Page")
+
+* Filter Button
+![Home](/Screenshots_Kindle/category_filter.png "Filter Button")
+
+* Text Search, recipe titles only
+![Home](/Screenshots_Kindle/searchbar.png "Search Bar")
+
+* Recipe Page example, full-sized image
+![Home](/Screenshots_Kindle/ex_full.png "Big Image")
+
+* Recipe Page example, thumb-sized image
+![Home](/Screenshots_Kindle/ex_thumb.png "Small Image")
+
+* Recipe Page example, continued . . .
+![Home](/Screenshots_Kindle/instructions.png "Instructions")
+
+* Recipe Page example, continued . . .
+![Home](/Screenshots_Kindle/reviews.png "Reviews")
 
 ## Upcoming
 
