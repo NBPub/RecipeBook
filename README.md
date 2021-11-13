@@ -49,7 +49,7 @@ services:
     image: nbpub/recipelook:latest
     container_name: recipebook
     volumes:
-      - <path/to/recipes-folder>:/recipe_data
+      - <path/to/recipes-folder>:/recipe_data:ro
     ports:
       - 5000:5000
     environment:
@@ -77,7 +77,7 @@ docker run -d \
   -e FONT_SMALL=30 \
   -e FONT_LARGE=36 \
   -p 5000:5000 \
-  -v <path/to/recipes-folder>:/recipe_data \
+  -v <path/to/recipes-folder>:/recipe_data:ro \
   --restart unless-stopped \
   nbpub/recipelook:latest
 ```
@@ -94,7 +94,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e IMAGE_SIZE=Full` | Default image size to load. Can be changed to "Thumbnails". Recipe pages have a toggle button to switch between sizes. |
 | `-e FONT_SMALL=30` | Default size for "small" sections: **Description** and **Reviews**. Can be changed to any integer to adjust web-page display. |
 | `-e FONT_LARGE=36` | Default size for "large" sections: **Ingredients** and **Instructions**. Can be changed to any integer to adjust web-page display. |
-| `-v /recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. |
+| `-v /recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. Read only option added for example "ro" |
 
 ## Screenshots
 
