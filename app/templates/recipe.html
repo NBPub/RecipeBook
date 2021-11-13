@@ -1,0 +1,106 @@
+<!doctype html>
+<title>{{ title }}</title>
+<style>
+
+span.a {
+  display: inline-block;
+  padding-right: 150px;
+}
+
+.button {
+  background-color: #424242;
+  border: 1px solid black;
+  color: #dedede;
+  margin-top: 30px;
+  margin-right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center; 
+  cursor: pointer;
+}
+
+input.right {float: right;}
+
+#Ingredients li {
+  font-size: {{ LargeFont }};
+  color: black;
+  list-style-type: circle;
+}
+
+#Instructions li {
+  font-size: {{ LargeFont }};
+  color: black;
+  margin-left: 8px;
+}
+
+#Category p {
+  font-size: 16px
+  font-weight: bolder;
+  margin-left: 8px;
+}
+.smaller{
+  font-size: {{ SmallFont }};
+  color: black;
+}
+</style>
+
+
+<form action="{{ url_for('homepage') }}">
+	<input type ="submit" class="button right" value="Back to List"/>
+</form>
+
+<span class=a>
+{% if image %}
+	{% if image[0] == 'f' %}
+		<form method="POST" action="{{ url_for('showpage', page=page) }}" >
+		<input type="submit" class="button" value="Reduce Image Size" name="imswitch"/>
+		</form>
+	{% elif image[0] == 't' %}
+		<form method = "POST" action="{{ url_for('showpage', page=page) }}" >
+		<input type="submit" class="button" value="Restore Image Size" name="imswitch"/>
+		</form>
+	{% endif %}
+{% endif %}
+</span>
+
+<span class=a>
+<form method="POST" action="{{ url_for('homepage') }}">
+	<input type ="submit" class="button middle" value="{{ category }}" name="cat-select"/>
+</form>
+</span>
+
+<br />
+
+<h1>{{ name }}</h1>
+	<p id="Description" class="smaller">{{ description }}</p>
+	{% if image %}
+		<p><img src="{{ url_for('static',filename=image) }}" /></p>
+	{% endif %}
+<br /><hr />
+
+<h2>Ingredients</h2>
+<ul id="Ingredients">
+	{% for item in ingredients %}
+		<li>{{item}}</li><br />
+	{% endfor %}
+</ul>
+<br /><hr />
+
+<h2>Instructions</h2>
+<ol id="Instructions">
+	{% for item in instructions %}
+		<li>{{item}}</li><br />
+	{% endfor %}
+</ol>
+<br /><hr />
+
+<h2>Reviews</h2>
+{% if avgrating %}
+	<img src="{{ url_for('static',filename='stars.png') }}" style="position:relative;right:{{ ((1-(avgrating/5))*298 + 4)|round }}px;"/>
+{% endif %}
+<ul id="Reviews" class="smaller">
+	{% for item in reviews %}
+		<li>{{item}}</li><br />
+	{% endfor %}
+</ul>
+<br /><hr />
