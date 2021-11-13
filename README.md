@@ -3,11 +3,25 @@ Python web-app (Flask) to browse Nextcloud Cookbook recipes on the local network
 
 ## Overview
 
-I created this to access recipes from [Nextcloud Cookbook](https://apps.nextcloud.com/apps/cookbook) and easily view them on Kindle's web browser whilst cooking. The view is designed for such screens, and is not as nice as the actual app. Therefore, accessing your Nextcloud website with a mobile device or tablet would just as effectively provide kitchen access to Cookbook. Note that the web application is very basic and should not be run on untrusted networks.
+I created this to access recipes from [Nextcloud Cookbook](https://apps.nextcloud.com/apps/cookbook) and easily view them on Kindle's web browser whilst cooking. The view is designed for such screens, and is not as nice as the actual app. Therefore, accessing your Nextcloud website with a mobile device or tablet would just as effectively provide kitchen access to Cookbook.
+
+Please note that the web application is very basic and should not be run on untrusted networks. It is not designed to be exposed publicly.
 
 The machine running the app should have access to the Nextcloud user data (directly or via network share). The data is supplied to the container using volume binding. See [LinuxServer.io](https://docs.linuxserver.io/) and [Docker](https://docs.docker.com/) for more information on Docker containers.
 
 This is my first project using Flask and building Docker containers. Feedback is appreciated.
+
+### Supported Architectures
+
+Pulling from DockerHub should provide the correct image for your system. The application is built on the python-alpine base image.
+
+Images are available for the following architectures:
+
+| Architecture | 
+| :----: | 
+| x86-64 |
+| arm64 | 
+| armhf |
 
 ## Application Setup
 
