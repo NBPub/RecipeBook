@@ -11,12 +11,11 @@ This is my first project using Flask and building Docker containers. Feedback is
 
 ## Application Setup
 
-*after adding image to dokcerhub, provide access information*
+Install and run using docker, examples provided below. [DockerHub Repository](https://hub.docker.com/r/nbpub/recipelook)
 
 Access main page at `<your-ip>:5000`. See below for changing port number.
 
 ## Usage
-*To Do: Add healthcheck to Docker-CLI.*
 
 This container is designed to run on the same machine hosting Nextcloud data. The volume binding below is for the directory containing the recipes stored by Nextcloud Cookbook. Alternatively, the data can be copied to another location, and then that location can be bound to "/recipe_data".
 
@@ -82,3 +81,11 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e FONT_SMALL=30` | Default size for "small" sections: **Description** and **Reviews**. Can be changed to any integer to adjust web-page display. |
 | `-e FONT_LARGE=36` | Default size for "large" sections: **Ingredients** and **Instructions**. Can be changed to any integer to adjust web-page display. |
 | `-v /recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. |
+
+## Screenshots
+
+TBD
+
+## Upcoming
+
+Version 1.0 is released. If issues are found or enhancements dreamt, they will come here until pushed to a new version.
