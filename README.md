@@ -121,7 +121,7 @@ Container images are configured using parameters passed at runtime (such as thos
 
 ## Upcoming
 
-Version 1.0 is released. If issues are found or enhancements dreamt, they will come here until pushed to a new version.
+**Version 1.0** is released. If issues are found or enhancements dreamt, they will come here until pushed to a new version.
 
 **Version 1.1:**
 * Compatability with [Tandoor Recipes](https://github.com/TandoorRecipes/recipes)
