@@ -1,6 +1,8 @@
 # RecipeBook
 Python web-app (Flask) to browse Nextcloud Cookbook recipes on the local network. Designed for use with E-Ink screens.
 
+[Deploy with Docker](https://github.com/NBPub/RecipeBook#application-setup) • [Local Build](https://github.com/NBPub/RecipeBook#build-locally) • [Screenshots](https://github.com/NBPub/RecipeBook#screenshots) • [Upcoming](https://github.com/NBPub/RecipeBook#upcoming)
+
 ## Overview
 
 I created this to access recipes from [Nextcloud Cookbook](https://apps.nextcloud.com/apps/cookbook) and easily view them on Kindle's web browser whilst cooking. The view is designed for such screens, and is not as nice as the actual app. Therefore, accessing your Nextcloud website with a mobile device or tablet would just as effectively provide kitchen access to Cookbook.
@@ -98,26 +100,51 @@ Container images are configured using parameters passed at runtime (such as thos
 
 ## Screenshots
 
-* Home Page, lists all recipes
-![Home](/Screenshots_Kindle/homepage.png "Home Page")
+<details>
+  <summary>Home Page, lists all recipes</summary>
+  
+  ![Home](/Screenshots_Kindle/homepage.png "Home Page")
+</details>
 
-* Filter Button
-![Home](/Screenshots_Kindle/category_filter.png "Filter Button")
+<details>
+  <summary>Filter Button</summary>
+    
+  ![Home](/Screenshots_Kindle/category_filter.png "Filter Button")
+</details>
 
-* Text Search, recipe titles only
-![Home](/Screenshots_Kindle/searchbar.png "Search Bar")
+<details>
+  <summary>Text Search, recipe titles only</summary>
+    
+  ![Home](/Screenshots_Kindle/searchbar.png "Search Bar")
+</details>
 
-* Recipe Page example, full-sized image
-![Home](/Screenshots_Kindle/ex_full.png "Big Image")
+<details>
+  <summary>Recipe Page example, full-sized image</summary>
+    
+  ![Home](/Screenshots_Kindle/ex_full.png "Big Image")
+</details>
 
-* Recipe Page example, thumb-sized image
-![Home](/Screenshots_Kindle/ex_thumb.png "Small Image")
 
-* Recipe Page example, continued . . .
-![Home](/Screenshots_Kindle/instructions.png "Instructions")
+<details>
+  <summary>Recipe Page example, thumb-sized image, Ingredients</summary>
+    
+  ![Home](/Screenshots_Kindle/ex_thumb.png "Small Image")
+</details>
 
-* Recipe Page example, continued . . .
-![Home](/Screenshots_Kindle/reviews.png "Reviews")
+
+<details>
+  <summary>Recipe Page example, continued . . . Instructions</summary>
+    
+  ![Home](/Screenshots_Kindle/instructions.png "Instructions")
+</details> 
+
+
+<details>
+  <summary>Recipe Page example, continued . . . Reviews</summary>
+    
+  ![Home](/Screenshots_Kindle/reviews.png "Reviews")
+</details> 
+
 
 ## Upcoming
 
@@ -130,4 +157,48 @@ Container images are configured using parameters passed at runtime (such as thos
 * wget instead of curl for healthchecks - does this provide smaller docker image?
 * Add tests
 * clean up CSS styling
+
+## Build Locally
+
+If you want to run RecipeBook without Docker, a python virtual environment is recommended. See [Flask Installation](https://flask.palletsprojects.com/en/2.0.x/installation/) for more details (and appropriate code for Windows). [Python 3.7](https://wiki.python.org/moin/BeginnersGuide/Download) or newer is recommended.
+
+1. [Download](https://github.com/NBPub/RecipeBook/archive/refs/heads/main.zip) the code in the repository. Click the green code button at the top of the page for options.
+
+2. Extract the folder contents. Copy the files+folders within "app" directory and "requirements.txt" to a new directory. Keep "ExampleRecipes" folder if you want to test with example data. All other contents can be deleted.
+
+3. Move to newly made directory and create and activate **venv**.
+
+```
+$ cd newdirectory
+$ python -m venv venv
+$ . venv/bin/activate
+```
+
+4. Install Flask, dependencies.
+
+```
+$ pip install -r requirements.txt
+```
+
+5. Adjust Flask parameters as desired, see [Flask Quickstart](https://flask.palletsprojects.com/en/2.0.x/quickstart/). A **Flask Env** file saves some typing when running the application. For example, if you only want the server to be visible from the local machine, remove `FLASK_RUN_HOST=0.0.0.0` from the file. The port number (default, 5000) can be changed in this file, too.
+
+```
+$ nano .flaskenv
+```
+
+*Additionally, it can be used to set values to environmental variables, as described in [Docker Parameters](https://github.com/NBPub/RecipeBook#parameters). Additions to base code may be required for this step (python-dotenv package, `load_dotenv()`)*
+
+6. Modify the path to recipe data. See line 13 of [RecipeReader.py](https://github.com/NBPub/RecipeBook/blob/main/app/RecipeReader.py). If you are using the ExampleRecipe folder, specify its location. Using a raw text string may be beneficial, but shouldn't be required.  `path = r'path/to/ExampleRecipes'`
+
+7. Run! Open site in web browser (http://localhost:5000). 
+
+```
+$ flask run
+```
+
+8. Press Ctrl+C to stop server. Deactivate **venv** when finished.
+
+```
+$ deactivate
+```
 
