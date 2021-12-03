@@ -1,7 +1,7 @@
 # RecipeBook
-Python web-app (Flask) to browse Nextcloud Cookbook recipes on the local network. Designed for use with E-Ink screens.
+Python web-app (Flask) to browse Nextcloud Cookbook recipes on the local network. Designed for use with E-Ink screens. [Tandoor](https://docs.tandoor.dev/) integration is in progress.
 
-[Deploy with Docker](https://github.com/NBPub/RecipeBook#application-setup) • [Local Build](https://github.com/NBPub/RecipeBook#build-locally) • [Screenshots](https://github.com/NBPub/RecipeBook#screenshots) • [Upcoming](https://github.com/NBPub/RecipeBook#upcoming)
+[Deploy with Docker](https://github.com/NBPub/RecipeBook#application-setup) • [Docker - Tandoor Version](https://github.com/NBPub/RecipeBook#setup-for-tandoor) • [Local Build](https://github.com/NBPub/RecipeBook#build-locally) • [Screenshots](https://github.com/NBPub/RecipeBook#screenshots) • [Upcoming](https://github.com/NBPub/RecipeBook#upcoming)
 
 ## Overview
 
@@ -31,7 +31,10 @@ Install and run using docker, examples provided below.
 
 Access main page at `<your-ip>:5000`. See below for changing port number.
 
-## Usage
+<details>
+  <summary>NC Cookbook Docker Details</summary>
+  
+  ### Usage
 
 This container is designed to run on the same machine hosting Nextcloud data. The volume binding below is for the directory containing the recipes stored by Nextcloud Cookbook. Alternatively, the data can be copied to another location, and then that location can be bound to "/recipe_data".
 
@@ -84,7 +87,7 @@ docker run -d \
   nbpub/recipelook:latest
 ```
 
-## Parameters
+### Parameters
 
 Container images are configured using parameters passed at runtime (such as those above). These parameters are separated by a colon and indicate `<external>:<internal>` respectively. For example, `-p 5001:5000` would expose port `5000` from inside the container to be accessible from the host's IP on port `5001` outside the container.
 
@@ -97,6 +100,98 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e FONT_SMALL=30` | Default size for "small" sections: **Description** and **Reviews**. Can be changed to any `<integer>` to adjust web-page display. |
 | `-e FONT_LARGE=36` | Default size for "large" sections: **Ingredients** and **Instructions**. Can be changed to any `<integer>` to adjust web-page display. |
 | `-v /recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. Read only option added for example "ro" |
+  
+</details>
+
+## Setup for Tandoor
+  
+  <details>
+  <summary>Tandoor Docker Details</summary>
+  
+  ### Usage
+
+*This section is in progress. Docker images not available and details subject to change.*    
+    
+This container uses data from your Tandoor instance by calling its API. Therefore, an appropriate API Token and URL are required for it to function. The initial run will require the Tandoor instance to be available. After the initial data gathering, information for pages is stored within the container to minimize calls to Tandoor.
+
+Find your API Token at `http://<your-URL>/settings/#api`
+
+Example configurations to build container are shown below. Environmental Variables are listed with default values and do not need to be specified. Healthcheck is optional.
+
+### docker-compose
+
+```yaml
+---
+version: "2"
+services:
+  recipe:
+    image: nbpub/recipelook:tandoor
+    container_name: recipebook
+    ports:
+      - 5000:5000
+    environment:
+      - TZ=America/Los_Angeles
+      - PAGE_TITLE=Recipe Book
+      - IMAGE_SIZE=Full
+      - FONT_SMALL=30
+      - FONT_LARGE=36
+      - Token=PasteYourTokenHere
+      - URL=http://localhost:8080/
+    healthcheck:
+      test: curl -I --fail http://localhost:5000 || exit 1
+      interval: 300s
+      timeout: 10s
+      start_period: 5s
+    restart: unless-stopped
+```
+
+### docker cli ([click here for more info](https://docs.docker.com/engine/reference/commandline/cli/))
+
+```bash
+docker run -d \
+  --name=recipebook \
+  -e TZ=America/Los_Angeles \
+  -e PAGE_TITLE=Recipe Book \
+  -e IMAGE_SIZE=Full \
+  -e FONT_SMALL=30 \
+  -e FONT_LARGE=36 \
+  -e Token=PasteYourTokenHere
+  -e URL=http://localhost:8080/
+  -p 5000:5000 \
+  --restart unless-stopped \
+  nbpub/recipelook:tandoor
+```
+
+### Parameters
+
+Container images are configured using parameters passed at runtime (such as those above). These parameters are separated by a colon and indicate `<external>:<internal>` respectively. For example, `-p 5001:5000` would expose port `5000` from inside the container to be accessible from the host's IP on port `5001` outside the container.
+
+| Parameter | Function |
+| :----: | --- |
+| `-p 5000` | Default Flask port. |
+| `-e TZ=America/Los_Angeles` | Set timezone for logging using tzdata. |
+| `-e PAGE_TITLE=Recipe Book` | Home page title. Displays on tab. |
+| `-e IMAGE_SIZE=Full` | Default image size to load. Can be changed to `Thumbnails`. Recipe pages have a toggle button to switch between sizes. |
+| `-e FONT_SMALL=30` | Default size for "small" sections: **Description** and **Reviews**. Can be changed to any `<integer>` to adjust web-page display. |
+| `-e FONT_LARGE=36` | Default size for "large" sections: **Ingredients** and **Instructions**. Can be changed to any `<integer>` to adjust web-page display. |
+| `-e Token=PasteYourTokenHere` | Default Token is an empty string. API calls will not work unless a valid token is provided. |
+| `-e URL=http://localhost:8080/` | Default URL for Tandoor instance. This should be changed to the appropriate base URL for Tandoor. |
+  
+</details>
+  
+## Upcoming
+
+**Version 1.0** is released. If issues are found or enhancements dreamt, they will come here until pushed to a new version.
+
+**Version 1.0, tag=Tandoor:**
+* Compatability with [Tandoor Recipes](https://github.com/TandoorRecipes/recipes)
+
+**Maybe Later**
+* wget instead of curl for healthchecks - does this provide smaller docker image?
+* Add tests
+* clean up CSS styling
+* Volume binding for configuration folder, let user poke through directories
+
 
 ## Screenshots
 
@@ -146,19 +241,10 @@ Container images are configured using parameters passed at runtime (such as thos
 </details> 
 
 
-## Upcoming
-
-**Version 1.0** is released. If issues are found or enhancements dreamt, they will come here until pushed to a new version.
-
-**Version 1.1:**
-* Compatability with [Tandoor Recipes](https://github.com/TandoorRecipes/recipes)
-
-**Maybe Later**
-* wget instead of curl for healthchecks - does this provide smaller docker image?
-* Add tests
-* clean up CSS styling
 
 ## Build Locally
+    
+*Current instructions are for the NexctCloud Cookbook version. Tandoor local build instructions to be added later.*    
 
 If you want to run RecipeBook without Docker, a python virtual environment is recommended. See [Flask Installation](https://flask.palletsprojects.com/en/2.0.x/installation/) for more details (and appropriate code for Windows). [Python 3.7](https://wiki.python.org/moin/BeginnersGuide/Download) or newer is recommended.
 
