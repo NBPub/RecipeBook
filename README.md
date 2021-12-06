@@ -1,5 +1,5 @@
 # RecipeBook
-Python web-app (Flask) to browse Nextcloud Cookbook recipes on the local network. Designed for use with E-Ink screens. 
+Python web-app (Flask) to browse [Nextcloud Cookbook](https://apps.nextcloud.com/apps/cookbook) recipes on the local network. Designed for use with E-Ink screens. 
 
 For a version that works with [Tandoor](https://docs.tandoor.dev/), please navigate to [RecipeBook-Tandoor](https://github.com/NBPub/RecipeBook-Tandoor)
 
@@ -93,7 +93,7 @@ Container images are configured using parameters passed at runtime (such as thos
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 5000` | Default Flask port. |
+| `-p 5000:5000` | Default Flask port. Internal port should not be changed. |
 | `-e TZ=America/Los_Angeles` | Set timezone for logging using tzdata. |
 | `-e PAGE_TITLE=Recipe Book` | Home page title. Displays on tab. |
 | `-e IMAGE_SIZE=Full` | Default image size to load. Can be changed to `Thumbnails`. Recipe pages have a toggle button to switch between sizes. |
