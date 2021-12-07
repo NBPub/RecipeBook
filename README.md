@@ -168,6 +168,8 @@ Container images are configured using parameters passed at runtime (such as thos
 
 ## Build Locally   
 
+*Instructions may not be comprehensive. Docker deployment is recommended.*
+
 If you want to run RecipeBook without Docker, a python virtual environment is recommended. See [Flask Installation](https://flask.palletsprojects.com/en/2.0.x/installation/) for more details (and appropriate code for Windows). [Python 3.7](https://wiki.python.org/moin/BeginnersGuide/Download) or newer is recommended.
 
 1. [Download](https://github.com/NBPub/RecipeBook/archive/refs/heads/main.zip) the code in the repository. Click the green code button at the top of the page for options.
@@ -194,9 +196,11 @@ $ pip install -r requirements.txt
 $ nano .flaskenv
 ```
 
-*Additionally, it can be used to set values to environmental variables, as described in [Docker Parameters](https://github.com/NBPub/RecipeBook#parameters). Additions to base code may be required for this step (python-dotenv package, `load_dotenv()`)*
+*Note that all local variables associated with environmental variables can be modified by changing the code. See next step for an example*
 
 6. Modify the path to recipe data. See line 13 of [RecipeReader.py](https://github.com/NBPub/RecipeBook/blob/main/app/RecipeReader.py). If you are using the ExampleRecipe folder, specify its location. Using a raw text string may be beneficial, but shouldn't be required.  `path = r'path/to/ExampleRecipes'`
+
+*Optional* - Modify local variables that are typically specified by docker-container environmental variables. See lines 15-20 or the same file. Values can be changed by modifying the second entry in `environ.get("<environmental variable name>", "<parameter to be changed>"`.
 
 7. Run! Open site in web browser (http://localhost:5000). 
 
