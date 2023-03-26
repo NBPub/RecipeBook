@@ -3,22 +3,28 @@ import json
 import pickle as pickle
 from shutil import copy
 
-def RecipeParser(p):
+def RecipeParser(recipe_data_path):
+    img_full = Path(Path.cwd(), 'app', 'static', 'fulls')
+    img_thumb = Path(Path.cwd(), 'app', 'static', 'thumbs')    
+    if not img_full.exists():
+        img_full.mkdir()
+    if not img_thumb.exists():
+        img_thumb.mkdir()
+        
     RecipeName = {}
     RecipeCategory = {}
     PageName = {}
     JSONPath = {}
     ImagePath = {}
 
-    p = Path(p)
-    for i,val in enumerate(p.iterdir()):
-        JSON = Path(val, 'recipe.json')
-        JSONPath[i] = JSON # Path to recipe data for page loading
-        with open(JSON, 'r') as file:
+    for i,val in enumerate(recipe_data_path.iterdir()):
+        JSONPath[i] = Path(val, 'recipe.json') # Path to recipe data for page loading
+        
+        with open(JSONPath[i], 'r') as file:
             data = json.load(file)
-        SafeName = "".join(char for char in data["name"] if char.isalnum() or char == ' ')
-        RecipeName[i] = SafeName # Save recipe name without any special characters
-        PageName[SafeName.replace(' ','')] = i # Save above name without spaces for URLs
+        # Save recipe name without any special characters, and without spaces for URLs
+        RecipeName[i] = "".join(char for char in data["name"] if char.isalnum() or char == ' ') 
+        PageName[RecipeName[i].replace(' ','')] = i
         
         if 'recipeCategory' in data:    
             RecipeCategory[i] = data['recipeCategory'] # Categories for filter buttons
@@ -26,12 +32,10 @@ def RecipeParser(p):
             RecipeCategory[i] = 'Not Assigned'
         
         if Path(val, 'full.jpg').exists(): # image types: thumb.jpg, full.jpg, thumb16.jpg (icon)
-            copy(Path(val, 'full.jpg'), Path(Path.cwd(),'static', 'fulls', f'{SafeName}.jpg'))
-            copy(Path(val, 'thumb.jpg'), Path(Path.cwd(),'static', 'thumbs', f'{SafeName}.jpg'))
-            ImagePath[i] = f'{SafeName}.jpg'
-    del data
-    del SafeName
-    del JSON
-
+            copy(Path(val, 'full.jpg'), Path(img_full, f'{RecipeName[i]}.jpg'))
+            copy(Path(val, 'thumb.jpg'), Path(img_thumb, f'{RecipeName[i]}.jpg'))
+            ImagePath[i] = f'{RecipeName[i]}.jpg'
+    
+    # save parsed JSON data as pickle
     with open(Path(Path.cwd(), 'RecipeData.pkl'), 'wb') as f:
         pickle.dump([RecipeName,RecipeCategory, PageName, JSONPath, ImagePath], f)

@@ -70,7 +70,7 @@
 </style>
 
 <h1>{{ HomePageTitle }} Recipes</h1>
-<form method = "POST" action="{{ url_for('homepage') }}" id="RefreshButton">
+<form method = "POST" action="{{ url_for('RecipeReader.homepage') }}" id="RefreshButton">
 	<input type="submit" value="Refresh List" name="reload"/>
 </form>
 
@@ -92,7 +92,7 @@
 <div class="container">
     <ul id="recipes">
     	{% for item in PageName %}
-    		<div class="filterCat {{ RecipeCategory[PageName[item]] }}"><li><a href="{{ url_for('homepage') }}{{ item }}">{{ RecipeName[PageName[item]] }}</a></li></div>
+    		<div class="filterCat {{ RecipeCategory[PageName[item]] }}"><li><a href="{{ url_for('RecipeReader.homepage') }}{{ item }}">{{ RecipeName[PageName[item]] }}</a></li></div>
     	{% endfor %}
     </ul>
 </div>

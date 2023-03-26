@@ -1,28 +1,11 @@
-from flask import Flask
-
-app = Flask(__name__)
-
 from pathlib import Path
-from flask import render_template, request
-import simplejson as json
+from flask import Blueprint, render_template, request, json
 import pickle as pickle
-from os import environ
-from RecipeParser import RecipeParser
+from os import getenv
+from .RecipeParser import RecipeParser
 
 # Path to read and parse recipe data, defaults to bounded volume
-path = '/recipe_data'
-
-#Load in Environmental Variables
-HomePageTitle =  environ.get('PAGE_TITLE','Recipe Book')
-LargeFont =  f'{environ.get("FONT_LARGE","36")}px'
-SmallFont =  f'{environ.get("FONT_SMALL","30")}px'
-
-imagetypeEnv = environ.get('IMAGE_SIZE','Full')
-if imagetypeEnv == 'Thumbnail':
-    imagetype = 'thumbs'
-else:
-    imagetype = 'fulls'
-del imagetypeEnv
+path = Path(Path.cwd(), 'recipe_data')
 
 # Function to parse recipe data, refresh to parse recipe folder if changes are made
 def Refresh():
@@ -32,11 +15,24 @@ def Refresh():
 if not(Path(Path.cwd(), 'RecipeData.pkl').exists()):
     Refresh()
 
-    
+#Load in Environmental Variables
+HomePageTitle =  getenv('PAGE_TITLE','Recipe Book')
+LargeFont =  f'{getenv("FONT_LARGE","36")}px'
+SmallFont =  f'{getenv("FONT_SMALL","30")}px'
+
+imagetypeEnv = getenv('IMAGE_SIZE','Full')
+if imagetypeEnv == 'Thumbnail':
+    imagetype = 'thumbs'
+else:
+    imagetype = 'fulls'
+del imagetypeEnv
+
+
+bp = Blueprint('RecipeReader', __name__, url_prefix='/')
 # Landing Page, list of recipes
 # POST methods for refresh  or returning to category functions
-@app.route("/", methods = ['GET','POST'])
-@app.route("/recipes/", methods = ['GET','POST'])
+@bp.route("/", methods = ['GET','POST'])
+@bp.route("/recipes/", methods = ['GET','POST'])
 def homepage():
     if request.method == 'POST':
         if request.form.get('reload') == 'Refresh List':
@@ -61,7 +57,7 @@ def homepage():
 
 
 # Recipes Page, gather data from JSON to serve to jinja template
-@app.route('/recipes/<page>', methods = ['GET','POST'])
+@bp.route('/recipes/<page>', methods = ['GET','POST'])
 def showpage(page):
     with open(Path(Path.cwd(), 'RecipeData.pkl'), 'rb') as f:
         RecipeName, RecipeCategory, PageName, JSONPath, ImagePath = pickle.load(f)
@@ -126,7 +122,7 @@ def showpage(page):
                            name=name, description=description, ingredients=ingredients, \
                            instructions=instructions, reviews=reviews, avgrating=avgrating)
 
-@app.route("/favicon.ico")
+@bp.route("/favicon.ico")
 def favicon():
     image = "favicon.ico"
     return render_template('image.html', image=image)    

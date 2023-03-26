@@ -45,18 +45,18 @@ input.right {float: right;}
 </style>
 
 
-<form action="{{ url_for('homepage') }}">
+<form action="{{ url_for('RecipeReader.homepage') }}">
 	<input type ="submit" class="button right" value="Back to List"/>
 </form>
 
 <span class=a>
 {% if image %}
 	{% if image[0] == 'f' %}
-		<form method="POST" action="{{ url_for('showpage', page=page) }}" >
+		<form method="POST" action="{{ url_for('RecipeReader.showpage', page=page) }}" >
 		<input type="submit" class="button" value="Reduce Image Size" name="imswitch"/>
 		</form>
 	{% elif image[0] == 't' %}
-		<form method = "POST" action="{{ url_for('showpage', page=page) }}" >
+		<form method = "POST" action="{{ url_for('RecipeReader.showpage', page=page) }}" >
 		<input type="submit" class="button" value="Restore Image Size" name="imswitch"/>
 		</form>
 	{% endif %}
@@ -64,7 +64,7 @@ input.right {float: right;}
 </span>
 
 <span class=a>
-<form method="POST" action="{{ url_for('homepage') }}">
+<form method="POST" action="{{ url_for('RecipeReader.homepage') }}">
 	<input type ="submit" class="button middle" value="{{ category }}" name="cat-select"/>
 </form>
 </span>

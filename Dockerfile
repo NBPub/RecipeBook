@@ -1,19 +1,8 @@
 FROM python:alpine
-
-ENV TZ=America/Los_Angeles
-
 RUN apk --no-cache add curl tzdata
+WORKDIR /app
 
-WORKDIR /code
-
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
-
+RUN pip install --upgrade pip setuptools wheel && pip install Flask
 COPY /app/ .
 
-ENTRYPOINT FLASK_APP=RecipeReader.py flask run --host=0.0.0.0
-
-EXPOSE 5000
-
-VOLUME /recipes
+ENTRYPOINT flask run --host=0.0.0.0

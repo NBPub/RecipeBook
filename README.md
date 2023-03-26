@@ -112,6 +112,7 @@ Container images are configured using parameters passed at runtime (such as thos
 * clean up CSS styling
 * Volume binding for configuration folder, let user poke through directories
 * Error handling
+* Cache cleaning - delete recipe images from static
 
 **Tandoor Compatability**
 * This version will work quite differently, so I made a new repository. See [here](https://github.com/NBPub/RecipeBook-Tandoor)
