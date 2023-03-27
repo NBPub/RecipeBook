@@ -36,7 +36,8 @@ Access main page at `<your-ip>:5000`. See below for changing port number.
  
 ### Usage
 
-This container is designed to run on the same machine hosting Nextcloud data. The volume binding below is for the directory containing the recipes stored by Nextcloud Cookbook. Alternatively, the data can be copied to another location, and then that location can be bound to "/recipe_data".
+This container is designed to run on the same machine hosting Nextcloud data. The volume binding below is for the directory containing the recipes stored by Nextcloud Cookbook. 
+Alternatively, the data can be copied to another location, and then that location can be bound to `/code/recipe_data`
 
 If using the [LSIO NextCloud docker container](https://github.com/linuxserver/docker-nextcloud#usage), the folder may be in the following location:
 ```
@@ -54,7 +55,7 @@ services:
     image: nbpub/recipelook:latest
     container_name: recipebook
     volumes:
-      - <path/to/recipes-folder>:/recipe_data:ro
+      - <path/to/recipes-folder>:/code/recipe_data
     ports:
       - 5000:5000
     environment:
@@ -63,6 +64,7 @@ services:
       - IMAGE_SIZE=Full
       - FONT_SMALL=30
       - FONT_LARGE=36
+      - ENABLE_API=False	  
     healthcheck:
       test: curl -I --fail http://localhost:5000 || exit 1
       interval: 300s
@@ -81,8 +83,9 @@ docker run -d \
   -e IMAGE_SIZE=Full \
   -e FONT_SMALL=30 \
   -e FONT_LARGE=36 \
+  -e ENABLE_API=False \  
   -p 5000:5000 \
-  -v <path/to/recipes-folder>:/recipe_data:ro \
+  -v <path/to/recipes-folder>:/code/recipe_data \
   --restart unless-stopped \
   nbpub/recipelook:latest
 ```
@@ -99,14 +102,23 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e IMAGE_SIZE=Full` | Default image size to load. Can be changed to `Thumbnails`. Recipe pages have a toggle button to switch between sizes. |
 | `-e FONT_SMALL=30` | Default size for "small" sections: **Description** and **Reviews**. Can be changed to any `<integer>` to adjust web-page display. |
 | `-e FONT_LARGE=36` | Default size for "large" sections: **Ingredients** and **Instructions**. Can be changed to any `<integer>` to adjust web-page display. |
-| `-v /recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. Read only option added for example "ro" |
+| `-e ENABLE_API=False` | Set to `True` to add an endpoint at `<your-ip>:5000/api/info` to return system statistics (temperature, load, CPU and RAM usage) as JSON. |
+| `-v /code/recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. Set to **Read-only** with ":ro" |
   
   
 ## Upcoming
 
-**Version 1.0** is released. If issues are found or enhancements dreamt, they will come here until pushed to a new version.
+**Version 1.0** *docker tag: `v1.0`*
+* Initial release
+* mount recipes in `/recipe_data` not `/code/recipe_data`
 
-**Version 1.1?**
+**Version 1.1** *docker tag: `latest`*
+* update Python, Flask
+* add API call for system info, adds `psutil` as dependency
+* change mount point for recipe data
+* building docker images via Github workflows
+
+**Version 1.2?**
 * wget instead of curl for healthchecks - does this provide smaller docker image?
 * Add tests
 * clean up CSS styling
@@ -116,7 +128,7 @@ Container images are configured using parameters passed at runtime (such as thos
 
 **Tandoor Compatability**
 * This version will work quite differently, so I made a new repository. See [here](https://github.com/NBPub/RecipeBook-Tandoor)
-* To be released on DockerHub soon!
+* Github repository and Docker images not updated past version "v1.0"
 
 ## Screenshots
 
