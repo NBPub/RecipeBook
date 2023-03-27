@@ -8,7 +8,7 @@ bp = Blueprint('api_v1', __name__, url_prefix='/api')
 def system_info():
     return {
         'temp':round(sensors_temperatures()['cpu_thermal'][0].current,2),
-        'load':getloadavg(),
+        'load':[round(val,2) for val in getloadavg()],
         'cpu':cpu_percent(),
         'ram':virtual_memory().percent,
     }
