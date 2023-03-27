@@ -11,7 +11,6 @@ def create_app(test_config=None):
     
     # register API if enabled
     enable_api =  getenv('ENABLE_API', False)
-    enable_api = 'true'
     if type(enable_api) == str and enable_api.lower() == 'true':
         from . import api_v1
         app.register_blueprint(api_v1.bp)
@@ -21,7 +20,7 @@ def create_app(test_config=None):
     
     app.logger.info('. . . starting RecipeBook . . .')  
     if not app.debug: 
-        app.logger.setLevel(logging.ERROR) # could change later
+        app.logger.setLevel(logging.ERROR) # adjust later
     else:
         app.logger.setLevel(logging.INFO) 
     return app
