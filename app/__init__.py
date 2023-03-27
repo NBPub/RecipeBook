@@ -11,7 +11,7 @@ def create_app(test_config=None):
     
     # register API if enabled
     enable_api =  getenv('ENABLE_API', False)
-    print(enable_api, type(enable_api))
+    enable_api = 'true'
     if type(enable_api) == str and enable_api.lower() == 'true':
         from . import api_v1
         app.register_blueprint(api_v1.bp)
