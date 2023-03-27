@@ -1,9 +1,10 @@
-FROM python:alpine
+FROM python:slim-bullseye
 
-RUN apk --no-cache add curl tzdata gcc python3-dev
+RUN apt-get update && \
+    apt-get upgrade -y && \
+	apt-get install gcc python3-dev  -y --no-install-recommends
 
-RUN pip install --upgrade pip setuptools wheel && pip install Flask && pip install --no-binary :all: psutil
-
+RUN pip install --upgrade pip setuptools wheel && pip install Flask psutil
 COPY /app/ /app
 
 ENTRYPOINT flask run --host=0.0.0.0
