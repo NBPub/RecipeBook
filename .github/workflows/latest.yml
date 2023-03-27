@@ -27,8 +27,7 @@ jobs:
         with:
           push: true
           platforms: linux/arm64
-          tags: nbpub/recipelook:test-multistage    
-          platforms: linux/arm64
+          tags: nbpub/recipelook:test-multistage   
       -
         name: Build and push alpine
         uses: docker/build-push-action@v3
@@ -36,6 +35,6 @@ jobs:
           push: true
           file: ./Dockerfile_alpine
           platforms: linux/arm64
-          tags: nbpub/recipelook:test-multistage-alpine      
+          tags: nbpub/recipelook:test-multistage-alpine  
 
 # platforms: linux/arm64, linux/amd64, linux/arm/v7          
