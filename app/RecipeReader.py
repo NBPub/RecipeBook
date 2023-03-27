@@ -1,32 +1,14 @@
 from pathlib import Path
-from flask import Blueprint, render_template, request, json
+from flask import Blueprint, render_template, request, json, current_app
 import pickle as pickle
-from os import getenv
 from .RecipeParser import RecipeParser
 
-# Path to read and parse recipe data, defaults to bounded volume
-path = Path(Path.cwd(), 'recipe_data')
+# environmental variables + recipes folder
+from .__init__ import data_path, HomePageTitle, LargeFont, SmallFont, imagetype
 
 # Function to parse recipe data, refresh to parse recipe folder if changes are made
 def Refresh():
-    RecipeParser(path)
-
-# When starting: parse data, save variables in pickle
-if not(Path(Path.cwd(), 'RecipeData.pkl').exists()):
-    Refresh()
-
-#Load in Environmental Variables
-HomePageTitle =  getenv('PAGE_TITLE','Recipe Book')
-LargeFont =  f'{getenv("FONT_LARGE","36")}px'
-SmallFont =  f'{getenv("FONT_SMALL","30")}px'
-
-imagetypeEnv = getenv('IMAGE_SIZE','Full')
-if imagetypeEnv == 'Thumbnail':
-    imagetype = 'thumbs'
-else:
-    imagetype = 'fulls'
-del imagetypeEnv
-
+    RecipeParser(data_path, current_app)
 
 bp = Blueprint('RecipeReader', __name__, url_prefix='/')
 # Landing Page, list of recipes
@@ -37,7 +19,7 @@ def homepage():
     if request.method == 'POST':
         if request.form.get('reload') == 'Refresh List':
             Refresh()
-        if request.form.get('cat-select') != None:
+        if request.form.get('cat-select') != None: # category filter
             ActiveCat = request.form.get('cat-select')
         else:
             ActiveCat = 'Show all'
@@ -80,7 +62,8 @@ def showpage(page):
             image = ''
     del ImagePath
     
-    with open(JSONPath[index],'r') as file: # Recipe data
+    # Recipe data
+    with open(JSONPath[index],'r') as file: 
         data = json.load(file)
     del file
     
@@ -108,7 +91,7 @@ def showpage(page):
                 base = f' {base} ~{val["author"]["name"]}'
             except:
                 pass
-            
+
             reviews.append(base)
         
         if len(ratings) > 0:

@@ -1,15 +1,17 @@
-from flask import current_app
+# from flask import current_app
 from pathlib import Path
 import json
 import pickle as pickle
 from shutil import copy
 
-def RecipeParser(recipe_data_path):
+def RecipeParser(recipe_data_path, current_app):
+    # check folder
     current_app.logger.info('Reading recipe data. . .')
     current_app.logger.info(recipe_data_path)  
     if not recipe_data_path.is_dir():
         current_app.logger.info('No recipe data found! Mount volume and restart container.')
-        return
+        return False
+    
     img_full = Path(Path.cwd(), 'app', 'static', 'fulls')
     img_thumb = Path(Path.cwd(), 'app', 'static', 'thumbs')    
     if not img_full.exists():
@@ -45,4 +47,4 @@ def RecipeParser(recipe_data_path):
     # save parsed JSON data as pickle
     with open(Path(Path.cwd(), 'RecipeData.pkl'), 'wb') as f:
         pickle.dump([RecipeName,RecipeCategory, PageName, JSONPath, ImagePath], f)
-    return
+    return True

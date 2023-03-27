@@ -106,17 +106,24 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-v /code/recipe_data` | Recipes in this folder are read and displayed on the homepage. A refresh button is provided to re-parse recipes in the volume. Set to **Read-only** with ":ro" |
   
   
-## Upcoming
+## History
 
-**Version 1.0** *docker tag: `v1.0`*
-* Initial release
+**Version 1.0** | *[docker](https://hub.docker.com/layers/nbpub/recipelook/v1.0/images/sha256-56ba4a2077383e6c516ece5456e52320434d4706faea41566119f27626358a1d): `v1.0`*
+* Initial release (16 Nov 2021)
 * mount recipes in `/recipe_data` not `/code/recipe_data`
 
-**Version 1.1** *docker tag: `latest`*
+**Tandoor Compatability** *[docker](https://hub.docker.com/layers/nbpub/recipelook/tandoor/images/sha256-9e7abf1acdbce7667456bb74cbef2727cf4f61209af97a011541effe16076471): `tandoor`*
+* This version will work quite differently, so I made a new repository. See [here](https://github.com/NBPub/RecipeBook-Tandoor)
+* Github repository and Docker images will not updated past version "v1.0"
+
+**Version 1.1** *[docker](): `v1.1`, `latest`*
 * update Python, Flask
-* add API call for system info, adds `psutil` as dependency
+* add API call for system info, adds [psutil](https://github.com/giampaolo/psutil#summary) as dependency
 * change mount point for recipe data
 * building docker images via Github workflows
+  * trying multi-stage builds with Python **slim-bullseye** and **alpine** base images
+
+----
 
 **Version 1.2?**
 * wget instead of curl for healthchecks - does this provide smaller docker image?
@@ -126,9 +133,7 @@ Container images are configured using parameters passed at runtime (such as thos
 * Error handling
 * Cache cleaning - delete recipe images from static
 
-**Tandoor Compatability**
-* This version will work quite differently, so I made a new repository. See [here](https://github.com/NBPub/RecipeBook-Tandoor)
-* Github repository and Docker images not updated past version "v1.0"
+
 
 ## Screenshots
 
