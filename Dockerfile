@@ -25,6 +25,6 @@ COPY --from=builder /code/requirements.txt .
 
 RUN pip install --no-cache /wheels/*
 
-COPY /app/ /app
+COPY /app/ ./app
 
 ENTRYPOINT flask run --host=0.0.0.0
