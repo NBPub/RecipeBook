@@ -47,7 +47,7 @@ def create_app(test_config=None):
     
     app.logger.info('. . . starting RecipeBook . . .')  
     if not app.debug: 
-        app.logger.setLevel(logging.ERROR) # adjust later
+        app.logger.setLevel(logging.INFO) # adjust later
     else:
         app.logger.setLevel(logging.INFO) 
     return app

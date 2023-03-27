@@ -74,7 +74,7 @@ input.right {float: right;}
 <h1>{{ name }}</h1>
 	<p id="Description" class="smaller">{{ description }}</p>
 	{% if image %}
-		<p><img src="{{ url_for('static',filename=image) }}" /></p>
+		<p><img src="{{ url_for('static',filename=image) }}" style="max-width:100%;height:auto;"/></p>
 	{% endif %}
 <br /><hr />
 
