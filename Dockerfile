@@ -1,5 +1,5 @@
 FROM python:alpine
-RUN apk --no-cache add curl tzdata
+RUN apk --no-cache add curl tzdata build-base linux-headers
 
 RUN pip install --upgrade pip setuptools wheel && pip install Flask psutil
 COPY /app/ /app
