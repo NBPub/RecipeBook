@@ -1,9 +1,8 @@
-name: Latest Docker Image CI
+name: Stable Release Docker Image CI
 
 on:
-  push:
-    branches:
-      - 'main'
+  release:
+    types: [published]
 
 jobs:
   docker:
@@ -26,13 +25,13 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          platforms: linux/arm64, linux/amd64, linux/arm/v7
-          tags: nbpub/recipelook:debian-latest  
+          platforms: linux/arm64, linux/amd64, linux/arm/v7 
+          tags: nbpub/recipelook:$debian-{{ github.ref_name }}
       -
         name: Build and push alpine
         uses: docker/build-push-action@v3
         with:
           push: true
           file: ./Dockerfile_alpine
-          platforms: linux/arm64, linux/amd64, linux/arm/v7
-          tags: nbpub/recipelook:latest      
+          platforms: linux/arm64, linux/amd64, linux/arm/v7 
+          tags: nbpub/recipelook:${{ github.ref_name }}      
