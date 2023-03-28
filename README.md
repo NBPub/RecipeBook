@@ -137,7 +137,7 @@ See [DockerHub Repository](https://hub.docker.com/r/nbpub/recipelook)
 
 ### Current Version
 
-**Version 1.1** *[docker](): `v1.1`, `latest`*
+**Version 1.1** *[docker](https://hub.docker.com/layers/nbpub/recipelook/v1.1/images/sha256-16bff622f682df252a185569fccc597e064012c398c23485703ff0df2cc66803): `v1.1`, `latest`*
 * update Python, Flask (March 2023)
 * add API call for system info
   * adds [psutil](https://github.com/giampaolo/psutil#summary) as dependency
