@@ -112,7 +112,7 @@ Images are available for the following architectures:
 | armhf |
 
 Pulling from DockerHub should provide the correct image for your system. 
-The application is built on the python-alpine base image. Debian-based images are available by adding `debian-` before a tag.
+The application is built on the Python-alpine base image. Debian images are available by adding `debian-` before a tag.
 
 | Tags | Description |
 | :----: |  --- |

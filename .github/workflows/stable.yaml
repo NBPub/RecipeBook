@@ -26,7 +26,7 @@ jobs:
         with:
           push: true
           platforms: linux/arm64, linux/amd64, linux/arm/v7 
-          tags: nbpub/recipelook:$debian-{{ github.ref_name }}
+          tags: nbpub/recipelook:debian-${{ github.ref_name }}
       -
         name: Build and push alpine
         uses: docker/build-push-action@v3
